@@ -51,12 +51,12 @@ public class RobotContainer {
    */
   
   private void configureBindings() {
-    new JoystickButton(m_driverController,1).whileTrue(new InstantCommand(mCandle::startTwinkleAnimation)).onFalse(new InstantCommand(mCandle::stopAnimation));
-    new JoystickButton(m_driverController,2).whileTrue(new InstantCommand(mCandle::startRainbowAnimation)).onFalse(new InstantCommand(mCandle::stopAnimation));
-    new JoystickButton(m_driverController,3).whileTrue(new InstantCommand(mCandle::startTwinkleAnimation)).onFalse(new InstantCommand(mCandle::stopAnimation));
-    new JoystickButton(m_driverController,4).whileTrue(new InstantCommand(mCandle::startRainbowAnimation)).onFalse(new InstantCommand(mCandle::stopAnimation));
+    new JoystickButton(m_driverController,1).whileTrue(new InstantCommand(mCandle::SetDefault)).onFalse(new InstantCommand(mCandle::TagAligned));
+    new JoystickButton(m_driverController,2).whileTrue(new InstantCommand(mCandle::TagDetected)).onFalse(new InstantCommand(mCandle::TagAligning));
+    new JoystickButton(m_driverController,3).whileTrue(new InstantCommand(mCandle::TagAligning)).onFalse(new InstantCommand(mCandle::TagDetected));
+    new JoystickButton(m_driverController,4).whileTrue(new InstantCommand(mCandle::TagAligned)).onFalse(new InstantCommand(mCandle::SetDefault));
     // Schedule ExampleCommand when exampleCondition changes to true
-    new JoystickButton(m_driverController, 2).onTrue(new InstantCommand(() -> mCandle.startRainbowAnimation(),mCandle));
+    new JoystickButton(m_driverController, 2).onTrue(new InstantCommand(() -> mCandle.SetDefault(),mCandle));
     
     // Schedule exampleMethodCommand when the Xbox controller's B button is pressed,  
     // cancelling on release.
