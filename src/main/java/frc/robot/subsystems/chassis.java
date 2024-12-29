@@ -4,13 +4,17 @@
 
 package frc.robot.subsystems;
 
+import javax.swing.text.html.HTML.Tag;
+
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.chassisID;
+import frc.robot.LimelightHelpers;
 
 public class chassis extends SubsystemBase {
   public final WPI_VictorSPX Frontleft = new WPI_VictorSPX(chassisID.FL);
@@ -54,8 +58,8 @@ public class chassis extends SubsystemBase {
         () -> {
           /* one-time action goes here */
         });
-  }
-
+    }
+  
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
    *
@@ -69,6 +73,30 @@ public class chassis extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    double Tag_Area = LimelightHelpers.getTA("");
+    double Tag_X = LimelightHelpers.getTX("");
+    double x = 0;
+
+    if (Tag_Area > 3 & Tag_Area < 2) {
+      x = 0.3;
+      Frontleft.set(x);
+      Frontright.set(x); 
+      RearLeft.set(x);
+      Rearright.set(x);
+      
+      Frontleft.setInverted(true);
+      Frontright.setInverted(false); 
+      RearLeft.setInverted(true);
+      Rearright.setInverted(false);
+    }
+    else if (Tag_Area < 3 & Tag_Area > 2) {
+      x = 0;
+      Frontleft.set(x);
+      Frontright.set(x); 
+      RearLeft.set(x);
+      Rearright.set(x);
+    }
+    
   }
 
   @Override

@@ -7,6 +7,9 @@ import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 import frc.robot.subsystems.Limelight;
 import frc.robot.Constants.CANdleCOnstants;
+
+import javax.swing.text.html.HTML.Tag;
+
 import com.ctre.phoenix.led.CANdle;
 import com.ctre.phoenix.led.CANdleConfiguration;
 import com.ctre.phoenix.led.LarsonAnimation;
@@ -21,6 +24,9 @@ public class Candle extends SubsystemBase{
     public LarsonAnimation TagDectected = new LarsonAnimation(225, 0, 225); // Purple  // sends a pocket of light across the LED strip
     public StrobeAnimation TagAligning = new StrobeAnimation(225, 255, 0); // Yellow  // strobes the LEDs a specified color
     public StrobeAnimation TagAligned = new StrobeAnimation(0, 225, 225); // Blue
+    public StrobeAnimation Accurate = new StrobeAnimation(0, 255, 0);
+    public StrobeAnimation Error = new StrobeAnimation(255, 0, 0);
+
 
     public static final double BlinkSpeed = 0.4; 
 
@@ -55,16 +61,27 @@ public class Candle extends SubsystemBase{
         candle.animate(TagAligned);
         TagAligning.setSpeed(BlinkSpeed);
     }
+
+    public void Accurate(){
+        candle.animate(Accurate);
+    }
+    public void Error(){
+        candle.animate(Error);
+    }
+
     
     @Override
     public void periodic(){
 
         // double Fiducial_ID = SmartDashboard.getNumber("Fiducial ID", -1);
         double Fiducial_ID = LimelightHelpers.getFiducialID("");
+        double Tag_Area = LimelightHelpers.getTA("");
+        double Tag_X = LimelightHelpers.getTX("");
 
         double Output_X = SmartDashboard.getNumber("Output_X", 0);
         double Output_Y = SmartDashboard.getNumber("Output_Y", 0);
-
+        /** 
+        
         if(Fiducial_ID == -1){
             SetDefault();
         }
@@ -78,16 +95,28 @@ public class Candle extends SubsystemBase{
                 TagAligned();
             }
         }
-
-
-        if (Fiducial_ID != -1){
-            //something
+       
+        if (Tag_Area == 0){
+           SetDefault() ;
         }
-        else if (Fiducial_ID == 1){
-            //something
+        
+        else if (Tag_Area != 0){
+            TagDetected();
+            
+            if((Tag_Area > 0) & (Tag_Area < 3)){
+                TagAligning();
+            }
+            else{
+                TagAligned();
+            }
         }
+        */
+        if (Tag_X == 0){
+           Accurate() ;
+        }
+        
         else {
-            //something
+            Error();
         }
 
     }
