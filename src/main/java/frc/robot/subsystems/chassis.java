@@ -46,6 +46,59 @@ public class chassis extends SubsystemBase {
     tank.arcadeDrive(-X, Y);
   }
   
+  public void forward(){
+    Frontleft.set(0.3);
+    Frontright.set(0.3);
+    RearLeft.set(0.3);
+    Rearright.set(0.3);
+    Frontleft.setInverted(false);
+    Frontright.setInverted(true); 
+    RearLeft.setInverted(false);
+    Rearright.setInverted(true);
+    
+  }
+
+  public void backward(){
+    Frontleft.set(0.3);
+    Frontright.set(0.3);
+    RearLeft.set(0.3);
+    Rearright.set(0.3);
+    Frontleft.setInverted(true);
+    Frontright.setInverted(false); 
+    RearLeft.setInverted(true);
+    Rearright.setInverted(false);
+    
+  }
+  public void right(){
+    Frontleft.set(0.3);
+    Frontright.set(0.3);
+    RearLeft.set(0.3);
+    Rearright.set(0.3);
+    Frontleft.setInverted(false);
+    Frontright.setInverted(false); 
+    RearLeft.setInverted(false);
+    Rearright.setInverted(false);
+    
+  }
+  public void left(){
+    Frontleft.set(0.3);
+    Frontright.set(0.3);
+    RearLeft.set(0.3);
+    Rearright.set(0.3);
+    Frontleft.setInverted(true);
+    Frontright.setInverted(true); 
+    RearLeft.setInverted(true);
+    Rearright.setInverted(true);
+    
+  }
+
+  public void stop(){
+    Frontleft.set(0);
+    Frontright.set(0);
+    RearLeft.set(0);
+    Rearright.set(0);
+  }
+
   /**
    * Example command factory method.                                                
    *
@@ -75,27 +128,31 @@ public class chassis extends SubsystemBase {
     // This method will be called once per scheduler run
     double Tag_Area = LimelightHelpers.getTA("");
     double Tag_X = LimelightHelpers.getTX("");
-    double x = 0;
+    
+    if (Tag_Area < 3 & Tag_Area > 2 || Tag_Area == 0) {
+      stop();
+    }
+    else if (Tag_Area >= 3 || Tag_Area <= 2) {
+      if (Tag_Area >= 3){
+        backward();
+      }
+      else {
+        forward();
+      }
+    }
 
-    if (Tag_Area > 3 & Tag_Area < 2) {
-      x = 0.3;
-      Frontleft.set(x);
-      Frontright.set(x); 
-      RearLeft.set(x);
-      Rearright.set(x);
-      
-      Frontleft.setInverted(true);
-      Frontright.setInverted(false); 
-      RearLeft.setInverted(true);
-      Rearright.setInverted(false);
+    if (Tag_X < 2 & Tag_X > -2 || Tag_X == 0) {
+      stop();
     }
-    else if (Tag_Area < 3 & Tag_Area > 2) {
-      x = 0;
-      Frontleft.set(x);
-      Frontright.set(x); 
-      RearLeft.set(x);
-      Rearright.set(x);
+    else if (Tag_X >= 2 || Tag_X <= -2) {
+      if (Tag_X >= 2) {
+        left();
+      }
+      else {
+        right();
+      }
     }
+    
     
   }
 
