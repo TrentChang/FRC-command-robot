@@ -129,31 +129,30 @@ public class chassis extends SubsystemBase {
     double Tag_Area = LimelightHelpers.getTA("");
     double Tag_X = LimelightHelpers.getTX("");
     
-    if (Tag_Area < 3 & Tag_Area > 2 || Tag_Area == 0) {
+    if (Tag_Area < 4 & Tag_Area > 2 || Tag_Area == 0) {
       stop();
     }
-    else if (Tag_Area >= 3 || Tag_Area <= 2) {
-      if (Tag_Area >= 3){
+    else if (Tag_Area >= 4 || Tag_Area <= 2) {
+      if (Tag_Area >= 4){
         backward();
       }
       else {
         forward();
       }
     }
-
-    if (Tag_X < 2 & Tag_X > -2 || Tag_X == 0) {
+    else{
+      if (Tag_X < 4 & Tag_X > -4 || Tag_X == 0) {
       stop();
-    }
-    else if (Tag_X >= 2 || Tag_X <= -2) {
-      if (Tag_X >= 2) {
+      }
+      else if (Tag_X >= 4 || Tag_X <= -4) {
+        if (Tag_X >= 4) {
         left();
-      }
-      else {
+        }
+        else {
         right();
+        } 
       }
     }
-    
-    
   }
 
   @Override
