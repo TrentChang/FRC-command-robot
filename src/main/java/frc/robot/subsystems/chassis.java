@@ -131,6 +131,18 @@ public class chassis extends SubsystemBase {
 
     if (Tag_Area < 4 & Tag_Area > 2 || Tag_Area == 0) {
       stop();
+      if (Tag_X < 4 & Tag_X > -4 || Tag_X == 0) {
+      stop();
+      }
+      else if (Tag_X >= 4 || Tag_X <= -4) {
+        if (Tag_X >= 4) {
+        right();
+        }
+        else {
+        left();
+        }
+        
+      }
     }
     else if (Tag_Area >= 4 || Tag_Area <= 2) {
       if (Tag_Area >= 4){
@@ -140,19 +152,7 @@ public class chassis extends SubsystemBase {
         forward();
       }
     }
-    else{
-      if (Tag_X < 4 & Tag_X > -4 || Tag_X == 0) {
-      stop();
-      }
-      else if (Tag_X >= 4 || Tag_X <= -4) {
-        if (Tag_X >= 4) {
-        left();
-        }
-        else {
-        right();
-        } 
-      }
-    }
+
   }
 
   @Override
